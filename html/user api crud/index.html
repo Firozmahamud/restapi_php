@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user </title>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <h2>USER Data (from API)</h2>
+
+    <!-- Search Bar and Add Button in Same Line with Icons -->
+    <div class="search-container">
+        <div class="search-icon">
+            <i class="fa fa-search"></i>
+            <input type="text" id="searchBar" placeholder="Search by name or phone">
+        </div>
+        <button class="add-btn" id="addBtn"><i class="fa fa-plus"></i> Add New user</button>
+    </div>
+
+    <!-- Table to display data -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <!-- <th>Date & Time</th> -->
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- Modal for Edit -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h3>Edit Record</h3>
+            <input type="hidden" id="editId">
+            <input type="text" id="editName" placeholder="Name">
+            <input type="text" id="editPhone" placeholder="Phone">
+            <button onclick="saveEdit()"><i class="fa fa-save"></i> update</button>
+            <button class="cancel" onclick="closeModal()"><i class="fa fa-times"></i> Cancel</button>
+        </div>
+    </div>
+
+    <!-- Modal for Add -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Record</h3>
+            <input type="text" id="addName" placeholder="Name">
+            <input type="text" id="addPhone" placeholder="Phone">
+            <button onclick="saveAdd()"><i class="fa fa-save"></i> Save</button>
+            <button class="cancel" onclick="closeAddModal()"><i class="fa fa-times"></i> Cancel</button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
