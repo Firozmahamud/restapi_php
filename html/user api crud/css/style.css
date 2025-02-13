@@ -152,7 +152,7 @@
         .th-container {
             position: relative;
         }
-        
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             table {
@@ -178,3 +178,23 @@
                 font-size: 12px;
             }
         }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .pagination button {
+            padding: 0px 0px;
+            margin: 5px;
+            border: none;
+            /* background-color: #008CBA; */
+            /* color: white; */
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .pagination button:hover {
+            /* background-color: #007B8C; */
+        }
+        

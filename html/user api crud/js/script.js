@@ -1,37 +1,72 @@
-let allData = [];
+let currentPage = 1;
+const rowsPerPage = 10;
+let tableData = [];
 
-        // Fetch Data from API
-        fetch('http://localhost:8080/Api/html/user api crud/api/api.php')
-        .then(response => response.json())
-        .then(data => {
-            allData = data;
-            displayData(allData); // Initial display
-        })
-        .catch(error => console.error('Error fetching data:', error));
+// Fetch Data from API and Store in tableData
+fetch('http://localhost:8080/Api/html/user api crud/api/api.php')
+    .then(response => response.json())
+    .then(data => {
+        tableData = data;
+        displayTable(currentPage);
+    })
+    .catch(error => console.error('Error fetching data:', error));
 
-        // Function to display data in table
-        function displayData(data) {
-            const tableBody = document.querySelector('#dataTable tbody');
-            tableBody.innerHTML = '';
-            data.forEach(item => {
-                const row = `
-                    <tr>
-                        <td>${item.id}</td>
-                        <td>${item.name}</td>
-                        <td>${item.phone_number}</td>
-                        <td class="buttons">
-                            <button class="btn edit-btn" onclick="editRecord(${item.id}, '${item.name}', '${item.phone_number}')">
-                                <i class="fa fa-edit"></i> 
-                            </button>
-                            <button class="btn delete-btn" onclick="deleteRecord(${item.id})">
-                                <i class="fa fa-trash"></i> 
-                            </button>
-                        </td>
-                    </tr>
-                `;
-                tableBody.innerHTML += row;
-            });
-        }
+// Function to display table data with pagination
+function displayTable(page) {
+    const tableBody = document.querySelector('#dataTable tbody');
+    tableBody.innerHTML = ''; // Clear previous data
+
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const paginatedItems = tableData.slice(start, end);
+
+    if (paginatedItems.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: red;">No Data Found</td></tr>`;
+        return;
+    }
+
+    paginatedItems.forEach(item => {
+        const row = `
+            <tr>
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.phone_number}</td>
+                <td class="buttons">
+                    <button class="btn edit-btn" onclick="editRecord(${item.id}, '${item.name}', '${item.phone_number}')">
+                        ✏️
+                    </button>
+                    <button class="btn delete-btn" onclick="deleteRecord(${item.id})">
+                        ❌
+                    </button>
+                </td>
+            </tr>
+        `;
+        tableBody.innerHTML += row;
+    });
+
+    updatePaginationButtons();
+}
+
+// Update Pagination Buttons
+function updatePaginationButtons() {
+    document.getElementById('pageNumber').innerText = `Page ${currentPage} of ${Math.ceil(tableData.length / rowsPerPage)}`;
+}
+
+// Next Page
+function nextPage() {
+    if (currentPage < Math.ceil(tableData.length / rowsPerPage)) {
+        currentPage++;
+        displayTable(currentPage);
+    }
+}
+
+// Previous Page
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayTable(currentPage);
+    }
+}
         // Search Functionality
 document.getElementById('searchBar').addEventListener('input', function() {
     const searchValue = this.value.toLowerCase();
