@@ -139,6 +139,20 @@
             background-color: #007B8C;
         }
 
+        /* Resize Handle Styling */
+        .resize-handle {
+            /* background-color: #dd3131; */
+            cursor: ew-resize;
+            width: 10px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .th-container {
+            position: relative;
+        }
+        
         /* Responsive Styles */
         @media (max-width: 768px) {
             table {
